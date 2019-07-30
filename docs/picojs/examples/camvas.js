@@ -37,7 +37,7 @@ function camvas(ctx, callback) {
   document.body.appendChild(streamContainer)
 
   // The callback happens when we are starting to stream the video.
-  navigator.mediaDevices.getUserMedia({video: true, audio: false}).then(function(stream) {
+  navigator.mediaDevices.getUserMedia({video: { facingMode: "environment" }, audio: false}).then(function(stream) {
     // Yay, now our webcam input is treated as a normal video and
     // we can start having fun
     self.video.srcObject = stream
