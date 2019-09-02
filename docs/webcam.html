@@ -63,6 +63,7 @@
     document.getElementById('capture').addEventListener('click', function () {
       context.drawImage(video, 0, 0, 480, 320);      
     });
+    const worker = new Tesseract.TesseractWorker();
     document.getElementById('recognize').addEventListener('click', function () {
       worker.recognize(canvas)
         .progress(progress => {
