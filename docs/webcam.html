@@ -5,12 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>摄像头拍照</title>
+  <script src='https://unpkg.com/tesseract.js@1.0.19/src/index.js'></script>
 </head>
 <body>
   <video id="video" width="480" height="320" controls>
   </video>
   <div>
     <button id="capture">拍照</button>
+    <button id="recognize">识别</button>
   </div>
   <canvas id="canvas" width="480" height="320"></canvas>
   <script>
@@ -59,7 +61,15 @@
  
     document.getElementById('capture').addEventListener('click', function () {
       context.drawImage(video, 0, 0, 480, 320);      
-    })
+    });
+    document.getElementById('recognize').addEventListener('click', function () {
+      worker.recognize(canvas)
+        .progress(progress => {
+          console.log('progress', progress);
+        }).then(result => {
+          console.log('result', result);
+        });
+    });
   </script>
 </body>
 </html>
