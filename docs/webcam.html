@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>摄像头拍照</title>
-<!--   <script src="https://cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
-  <script src='https://unpkg.com/tesseract.js@v2.0.0-alpha.13/dist/tesseract.min.js'></script>
-<!--   <script src='https://unpkg.com/tesseract.js@1.0.19/src/index.js'></script> -->
 </head>
 <body>
   <video id="video" width="480" height="320" controls>
@@ -59,7 +56,7 @@
       getUserMedia({video : {
         width: 480,
         height: 320,
-        facingMode: 'environment',
+        // facingMode: 'environment',
       }}, success, error);
     } else {
       alert('不支持访问用户媒体');
@@ -67,19 +64,6 @@
  
     document.getElementById('capture').addEventListener('click', function () {
       context.drawImage(video, 0, 0, 480, 320);      
-    });
-    const worker = new Tesseract.TesseractWorker({
-      workerPath: './tesseract/worker.min.js',
-      langPath: './tesseract',
-      corePath: './tesseract/tesseract-core.wasm.js',
-    });
-    document.getElementById('recognize').addEventListener('click', function () {
-      worker.recognize(canvas, 'chi_sim', {tessedit_char_whitelist: '0123456789X'})
-        .progress(progress => {
-          console.log('progress', progress);
-        }).then(result => {
-          console.log('result', result);
-        });
     });
   </script>
 </body>
