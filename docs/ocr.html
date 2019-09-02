@@ -11,8 +11,9 @@
   <video id="video" width="1280" height="720" controls></video>
   <!-- <video id="video" width="100%" controls></video> -->
   <div>
-    <button id="capture">拍照</button>
-    <button id="recognize">识别</button>
+    <button id="capture" style="margin-right: 20px;">拍照</button>
+    <button id="recognizeCanvas" style="margin-right: 20px;">识别canvas</button>
+    <button id="recognizeVideo" style="margin-right: 20px;">识别video</button>
   </div>
   <div>
     <div>result:</div>
@@ -85,8 +86,25 @@
       langPath: './tesseract',
       corePath: './tesseract/tesseract-core.wasm.js',
     });
-    document.getElementById('recognize').addEventListener('click', function () {
-      worker.recognize(canvas, 'chi_sim',
+    document.getElementById('recognizeCanvas').addEventListener('click', function () {
+      worker.recognize(
+        canvas,
+        // 'chi_sim',
+        // {
+        //   tessedit_char_whitelist: '0123456789X',
+        // }
+      )
+        .progress(progress => {
+          console.log('progress', progress);
+        }).then(result => {
+          console.log('result', result);
+          document.getElementById('ocr-text').innerText = result.text;
+        });
+    });
+    document.getElementById('recognizeVideo').addEventListener('click', function () {
+      worker.recognize(
+        video,
+        // 'chi_sim',
         // {
         //   tessedit_char_whitelist: '0123456789X',
         // }
