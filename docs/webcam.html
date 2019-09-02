@@ -64,7 +64,11 @@
     document.getElementById('capture').addEventListener('click', function () {
       context.drawImage(video, 0, 0, 480, 320);      
     });
-    const worker = new Tesseract.TesseractWorker();
+    const worker = new Tesseract.TesseractWorker({
+      workerPath: './tesseract/worker.min.js',
+      langPath: './tesseract',
+      corePath: './tesseract/tesseract-core.wasm.js',
+    });
     document.getElementById('recognize').addEventListener('click', function () {
       worker.recognize(canvas, 'chi_sim', {tessedit_char_whitelist: '0123456789X'})
         .progress(progress => {
