@@ -89,10 +89,10 @@
     document.getElementById('recognizeCanvas').addEventListener('click', function () {
       worker.recognize(
         canvas,
-        // 'chi_sim',
-        // {
-        //   tessedit_char_whitelist: '0123456789X',
-        // }
+        'eng',
+        {
+          tessedit_char_whitelist: '0123456789X',
+        }
       )
         .progress(progress => {
           console.log('progress', progress);
