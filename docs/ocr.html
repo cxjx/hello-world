@@ -8,8 +8,8 @@
   <script src='./tesseract/tesseract.min.js'></script>
 </head>
 <body>
-  <video id="video" width="480" height="320" controls>
-  </video>
+  <video id="video" width="1280" height="720" controls></video>
+  <!-- <video id="video" width="100%" controls></video> -->
   <div>
     <button id="capture">拍照</button>
     <button id="recognize">识别</button>
@@ -18,7 +18,7 @@
     <div>result:</div>
     <p id="ocr-text"></p>
   </div>
-  <canvas id="canvas" width="480" height="320"></canvas>
+  <canvas id="canvas" width="1280" height="720"></canvas>
   <script>
     //访问用户媒体设备的兼容方法
     function getUserMedia(constraints, success, error) {
@@ -47,8 +47,11 @@
       //将视频流设置为video元素的源
       console.log(stream);
 
-      try{
-        alert(JSON.stringify(stream.getVideoTracks()[0].getCapabilities()));
+      try {
+        const capabilities = stream.getVideoTracks()[0].getCapabilities();
+        const maxHeight = capabilities.height.max;
+        const maxWidth = capabilities.width.max;
+        alert(JSON.stringify(capabilities));
       } catch(e) {
         // 
       }
@@ -65,8 +68,8 @@
     if (navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia) {
       //调用用户媒体设备, 访问摄像头
       getUserMedia({video : {
-        width: 480,
-        height: 320,
+        width: 1280,
+        height: 720,
         facingMode: 'environment',
       }}, success, error);
     } else {
@@ -74,7 +77,7 @@
     }
  
     document.getElementById('capture').addEventListener('click', function () {
-      context.drawImage(video, 0, 0, 480, 320);      
+      context.drawImage(video, 0, 0, 1280, 720);
     });
 
     const worker = new Tesseract.TesseractWorker({
