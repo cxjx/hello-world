@@ -66,7 +66,7 @@
     });
     const worker = new Tesseract.TesseractWorker();
     document.getElementById('recognize').addEventListener('click', function () {
-      worker.recognize(canvas)
+      worker.recognize(canvas, 'chi_sim', {tessedit_char_whitelist: '0123456789X'})
         .progress(progress => {
           console.log('progress', progress);
         }).then(result => {
