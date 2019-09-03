@@ -99,6 +99,7 @@
         }).then(result => {
           console.log('result', result);
           document.getElementById('ocr-text').innerText = result.text;
+          // worker.terminate();
         });
     });
     document.getElementById('recognizeVideo').addEventListener('click', function () {
@@ -114,6 +115,7 @@
         }).then(result => {
           console.log('result', result);
           document.getElementById('ocr-text').innerText = result.text;
+          // worker.terminate();
         });
     });
   </script>
